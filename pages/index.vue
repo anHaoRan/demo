@@ -2,6 +2,7 @@
   <section class="container">
     <div>
       <app-logo/>
+      <wechat/>
       <h1 class="title">
         demo
       </h1>
@@ -19,15 +20,18 @@
           class="button--grey">GitHub</a>
       </div>
     </div>
+    <wechat/>
   </section>
 </template>
 
 <script>
 import AppLogo from '~/components/AppLogo.vue'
+import wechat from '~/components/wechat.vue'
 
 export default {
   components: {
-    AppLogo
+    AppLogo,
+    wechat
   }
 }
 </script>

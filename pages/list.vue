@@ -1,6 +1,9 @@
 <template>
   <section class="container">
+     
     <div>
+       <el-radio v-model="radio" label="1">备选项</el-radio>
+    <el-radio v-model="radio" label="2">备选项</el-radio>
       <app-logo/>
       <h1 class="title">
         list
@@ -28,6 +31,11 @@ import AppLogo from '~/components/AppLogo.vue'
 export default {
   components: {
     AppLogo
+  },
+  data () {
+      return {
+        radio: '1'
+      };
   }
 }
 </script>

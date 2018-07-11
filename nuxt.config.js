@@ -33,22 +33,14 @@ module.exports = {
    ** Build configuration
    */
   css: [
-    '~assets/css/main.css',
-    'element-ui/lib/theme-default/index.css'
+    // '~assets/css/main.css',
+    'element-ui/lib/theme-chalk/index.css'
   ],
   build: {
     vendor: [
       'axios',
       'element-ui'
     ],
-    babel: {
-      plugins: [
-        ['component', [{
-          libraryName: 'element-ui',
-          styleLibraryName: 'theme-default'
-        }]]
-      ]
-    },
     loaders: [{
         test: /\.css$/,
         loader: 'vue-style-loader!css-loader'

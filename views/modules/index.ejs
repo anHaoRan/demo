@@ -1,0 +1,20 @@
+<body>
+    <div id="app">
+        <h1>网站建设中。。。。</h1>
+        <el-button @click="visible = true">Button</el-button>
+        <el-dialog :visible.sync="visible" title="Hello world">
+            <p>Try Element</p>
+        </el-dialog>
+    </div>
+</body>
+<%- include ../common/common-js.ejs %>
+    <script>
+        new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    visible: false
+                }
+            }
+        })
+    </script>

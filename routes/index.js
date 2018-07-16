@@ -18,7 +18,6 @@ router.get('/upload', function (req, res, next) {
     console.log(resp)
     res.send(resp);
   })
-  
 });
 
 function rumCommand(cmd, args, callback) {

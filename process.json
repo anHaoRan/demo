@@ -1,11 +1,11 @@
 {
   "apps" : [{
-    "name"        : "story-node-pc-ejs",
+    "name"        : "anhr",
     "script"      : "./bin/www",
     "watch"       : false,
     "max_memory_restart" : "110M",
     "merge_logs"  : true,
-    "instances"   : 4,
+    "instances"   : 2,
     "exec_mode"   : "cluster",
     "env": {
         "NODE_ENV": "production"

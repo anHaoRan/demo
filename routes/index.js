@@ -6,8 +6,6 @@ var config = require('../config');
 var spawn = require('child_process').spawn
 var path = require('path');
 /* GET home page. */
-var src = path.join(__dirname, '../upload.sh');
-console.log(src, '<<<<<<<<<<<<<src')
 
 router.get('/', function (req, res, next) {
   res.render('index', Object.assign({
@@ -16,7 +14,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/upload', function (req, res, next) {
-  rumCommand('sh', src, function (resp) { // 执行 autoBuild.sh 脚本文件
+  rumCommand('sh', ['./upload.sh'], function (resp) { // 执行 autoBuild.sh 脚本文件
     console.log(resp)
   })
 });

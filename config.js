@@ -3,17 +3,14 @@ var config = {
   production: {
     api: 'https://mobile.hotread.com/',
     port: 4001,
-    assets:''
+    assets:'',
+    configType:'production'
   },
   development: {
     api: 'https://txwap.hotread.com',
     port: 4001,
-    assets:''
-  },
-  test: {
-    api: 'https://txwap.hotread.com',
-    port: 4001,
-    assets:''
+    assets:'',
+    configType:'development'
   }
 };
 

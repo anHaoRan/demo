@@ -2,6 +2,7 @@
     <div id="app">
         <h1>网站建设中。。。。</h1>
         <el-button @click="visible = true">Button</el-button>
+        <el-button @click="restart">重新部署</el-button>
         <el-dialog :visible.sync="visible" title="Hello world">
             <p>Try Element</p>
         </el-dialog>
@@ -15,6 +16,16 @@
                 return {
                     visible: false
                 }
+            },
+            methods: {
+                restart: function () {
+                    this.$http.get('/upload')
+                        .then(function (resp) {
+                        });
+                }
+            },
+            ready:function(){
+                this.restart();
             }
         })
     </script>

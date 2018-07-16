@@ -16,7 +16,9 @@ router.get('/', function (req, res, next) {
 router.get('/upload', function (req, res, next) {
   rumCommand('sh', ['./upload.sh'], function (resp) { // 执行 autoBuild.sh 脚本文件
     console.log(resp)
+    res.send(resp);
   })
+  
 });
 
 function rumCommand(cmd, args, callback) {

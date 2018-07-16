@@ -21,7 +21,6 @@ router.get('/upload', function (req, res, next) {
     data:'su',
     errorCode:200
   });
-  res.location('/')
 });
 
 function rumCommand(cmd, args, callback) {

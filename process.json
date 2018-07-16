@@ -1,0 +1,14 @@
+{
+  "apps" : [{
+    "name"        : "story-node-pc-ejs",
+    "script"      : "./bin/www",
+    "watch"       : false,
+    "max_memory_restart" : "110M",
+    "merge_logs"  : true,
+    "instances"   : 4,
+    "exec_mode"   : "cluster",
+    "env": {
+        "NODE_ENV": "production"
+    }
+  }]
+}

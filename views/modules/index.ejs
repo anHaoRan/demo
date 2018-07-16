@@ -21,6 +21,7 @@
                 restart: function () {
                     this.$http.get('/upload')
                         .then(function (resp) {
+                            location.reload();
                         });
                 }
             },

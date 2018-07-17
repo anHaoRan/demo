@@ -6,10 +6,16 @@ var config = require('../config');
 var spawn = require('child_process').spawn
 var path = require('path');
 /* GET home page. */
-
+// 首页
 router.get('/', function (req, res, next) {
   res.render('index', Object.assign({
-    title: 'Express'
+    title: '首页'
+  }, config));
+});
+// 系统操作页
+router.get('/opciton', function (req, res, next) {
+  res.render('opciton', Object.assign({
+    title: '系统操作页'
   }, config));
 });
 

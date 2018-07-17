@@ -1,0 +1,33 @@
+<body>
+    <div id="app">
+        <el-button @click="restart">重新部署{{isfrequency}}</el-button>
+    </div>
+</body>
+<%- include ../common/common-js.ejs %>
+    <script>
+       var vm = new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    isfrequency:true
+                }
+            },
+            methods: {
+                restart: function () {
+                    var self = this;
+                    if(!this.isfrequency){
+                        return false;
+                    }
+                    this.isfrequency = false;
+                    this.$http.get('/upload')
+                        .then(function (resp) {
+                            self.isfrequency = true;
+                            location.reload();
+                        });
+                }
+            },
+            ready:function(){
+                
+            }
+        })
+    </script>

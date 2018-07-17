@@ -1,9 +1,13 @@
 <body>
-    <div id="app">
+    <div id="app" v-cloak>
         <h1>网站建设中。。。。</h1>
-        <el-button @click="visible = true">Button</el-button>
-        <el-dialog :visible.sync="visible" title="Hello world">
-            <p>Try Element</p>
+        <el-button @click="visible = true">弹窗</el-button>
+        <el-dialog :visible.sync="visible" title="弹窗标题">
+                <p>弹窗内容</p>
+                <p>弹窗内容</p>
+                <p>弹窗内容</p>
+                <p>弹窗内容</p>
+                <p>弹窗内容</p>
         </el-dialog>
     </div>
 </body>

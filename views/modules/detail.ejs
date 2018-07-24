@@ -1,0 +1,112 @@
+<body>
+    <div id="app" v-cloak>
+        <el-container>
+            <el-container>
+                <el-header style="padding: 0px;">
+                    <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#545c64"
+                        text-color="#fff" active-text-color="#ffd04b">
+                        <el-menu-item index="3">
+                            <img src="../images/favico.png" alt="" style="height: 40px;">
+                        </el-menu-item>
+                        <el-submenu index="2" style="float: right;">
+                            <template slot="title">超级管理员</template>
+                            <el-menu-item index="2-1">编辑资料</el-menu-item>
+                            <el-menu-item index="2-2">修改密码</el-menu-item>
+                            <el-menu-item index="2-3">退出登录</el-menu-item>
+                        </el-submenu>
+                    </el-menu>
+                </el-header>
+                <el-main>
+                    <el-col :span="3">
+                        <img src="<%- data.title %>" alt="">
+                    </el-col>
+                    <el-col :span="10">
+                        <h2>书籍名称：<%- data.title %></h2>
+                        <h2>作者：<%- data.author %></h2>
+                        <h2>分类：<%- data.minorCate %></h2>
+                        <h2>总字数：<%- data.wordCount %></h2>
+                        <h2>追书人数：<%- data.latelyFollower %></h2>
+                        <h2>读者留存率：<%- data.retentionRatio %>%</h2>
+                        <h2>更新字数/天：<%- data.serializeWordCount %></h2>
+                        <h2>最后更新时间：<%- data.updated %></h2>
+                        <h2>最后章节：<%- data.lastChapter %></h2>
+                        <p>简介：<%- data.longIntro %></p>
+                    </el-col>
+                </el-main>
+                <el-footer style="background-color:#545c64"></el-footer>
+            </el-container>
+        </el-container>
+
+    </div>
+</body>
+<%- include ../common/common-js.ejs %>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    visible: false,
+                    treeData: [],
+                    tableData3: [],
+                    ranking: {},
+                    defaultProps: {
+                        children: 'childs',
+                        label: 'title'
+                    },
+                    activeIndex2: '1',
+                    multipleSelection: []
+                }
+            },
+            methods: {
+                getMenu: function () {
+                    var self = this;
+                    this.$http.get('/getMenu').then(function (resp) {
+                        var resp = resp.body;
+                        var data = resp.data;
+                        // self.treeData = data;
+                    });
+                },
+                handleNodeClick(data) {
+                    var self = this;
+                    this.getFn(`/getRanking?RankId=${data._id}`, function (resp) {
+                        console.log(resp.ranking)
+                        self.ranking = resp.ranking;
+                    });
+                },
+                // 表格点击？？？？选中
+                handleSelectionChange(val) {
+                    console.log(val)
+                    this.multipleSelection = val;
+                },
+                handleSelect(key, keyPath) {
+                    // console.log(key, keyPath,'<<<<<<<<<<<<<<<<');
+                    if(key==3){
+                        location.href = '/'
+                    }
+                },
+                getFn: function (url, callback) {
+                    return this.$http.get(url).then(function (resp) {
+                        var data = JSON.parse(resp.body);
+                        callback(data);
+                    });
+                },
+                getRanking: function (objUrl) {
+                    var self = this;
+                    var list = [];
+                    var url = objUrl || '/getRanking';
+                    this.getFn(url, function (resp) {
+                        for (const i in resp) {
+                            if (resp[i].length) {
+                                list = list.concat(resp[i]);
+                            }
+                        }
+                        self.treeData = list;
+                    });
+                }
+            },
+            mounted() {
+                this.getMenu();
+                this.getRanking();
+            }
+        })
+    </script>

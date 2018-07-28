@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //图片代理
-app.use('/image2', proxy({
+app.use('/image', proxy({
   target: 'http://statics.sdchjd.cn',
   changeOrigin: true
 }));

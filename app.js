@@ -15,12 +15,19 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+//图片代理
+app.use('/image', proxy({
+  target: 'http://statics.sdchjd.cn',
+  changeOrigin: true
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

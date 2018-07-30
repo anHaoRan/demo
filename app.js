@@ -24,10 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //图片代理
-app.use('/image', proxy({
-  target: 'http://statics.sdchjd.cn',
-  changeOrigin: true
-}));
+// app.use('/image', proxy({
+//   target: 'http://statics.sdchjd.cn',
+//   changeOrigin: true
+// }));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

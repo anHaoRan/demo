@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var proxy = require('http-proxy-middleware');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -15,13 +15,19 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
+//图片代理
+app.use('/image', proxy({
+  target: 'http://statics.sdchjd.cn',
+  changeOrigin: true
+}));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

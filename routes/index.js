@@ -7,10 +7,8 @@ var request = require('request');
 var spawn = require('child_process').spawn
 var path = require('path');
 var _headers = {
-  
   'Accept': 'application/json',
   'Content Type': 'application/json; charset=utf-8'
-  
 };
 /* GET home page. */
 // 首页

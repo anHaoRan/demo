@@ -23,7 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/assets', express.static(path.join(__dirname, 'wechat')));
 //图片代理
 // app.use('/image', proxy({
 //   target: 'http://statics.sdchjd.cn',

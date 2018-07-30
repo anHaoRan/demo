@@ -23,7 +23,7 @@ router.get('/opciton', function (req, res, next) {
     title: '系统操作页'
   }, config));
 });
-// 书籍详情页
+// 书籍详情页借口
 router.get('/detail/:id', function (req, res, next) {
   var id = req.params.id;
   var time = new Date().getTime();
@@ -37,13 +37,18 @@ router.get('/detail/:id', function (req, res, next) {
   }, function (error, response, body) {
     // var obj = JSON.parse(body);
     var obj = JSON.stringify(body);
-    console.log(obj)
-    res.render('detail', Object.assign({
-      title: data.title + '书籍详情页'
-    }, config, {
-      data: obj
-    }));
+    res.send(obj);
   });
+});
+// 书籍详情页路由
+router.get('/detail', function (req, res, next) {
+  var title = req.query.title;
+  var id = req.query.id;
+  var obj = Object.assign({
+    title: title + '-书籍详情页',
+    bookId: id
+  }, config);
+  res.render('detail', obj);
 });
 
 router.get('/upload', function (req, res, next) {

@@ -2,7 +2,7 @@
   "apps" : [{
     "name"        : "anhr",
     "script"      : "./bin/www",
-    "watch"       : false,
+    "watch"       : true,
     "max_memory_restart" : "110M",
     "merge_logs"  : true,
     "instances"   : 1,

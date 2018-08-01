@@ -16,6 +16,9 @@
           </el-menu>
         </el-header>
         <el-main>
+          <ul>
+            <li v-for="item in book.chapters"><a href="jacvascript:;" @click="getReadText(item.link)">{{item.title}}</a></li>
+          </ul>
         </el-main>
         <el-footer style="background-color:#545c64"></el-footer>
       </el-container>
@@ -31,7 +34,8 @@
         return {
           detail: {},
           bookId: '<%-bookId%>',
-          activeIndex2: ''
+          activeIndex2: '',
+          book: {}
         }
       },
       methods: {
@@ -41,13 +45,34 @@
           var url = '/detail/' + this.bookId;
           this.$http.get(url).then(function(resp) {
             var resp = resp.body;
-            self.detail = JSON.parse(resp);
-            console.log(JSON.parse(resp))
+          });
+        },
+        getChtper: function() {
+          var self = this;
+          var url = '/read/' + this.bookId + '/chapter';
+          this.$http.get(url).then(function(resp) {
+            var data = resp.body;
+            data = JSON.parse(data);
+            self.book = data.mixToc;
+          });
+        },
+        getReadText: function(chapterUrl) {
+          var self = this;
+          var url = '/read/chapterUrl' + (chapterUrl.replace('http://book.my716.com/getBooks.aspx?method=content&', '?'));
+          // http://book.my716.com/getBooks.aspx?method=content&bookId=1228859&chapterFile=U_1228859_201803081001399585_4670_1.txt
+
+          console.log(url, '<<<<<<<<<<<<<<<<<<<<<<')
+          this.$http.get(url).then(function(resp) {
+            var data = resp.body;
+            // data = JSON.parse(data);
+            console.log(data);
+            // self.book = data.mixToc;
           });
         }
       },
       mounted() {
         this.getDetail();
+        this.getChtper();
       }
     })
   </script>

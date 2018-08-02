@@ -16,8 +16,26 @@
           </el-menu>
         </el-header>
         <el-main>
+          <h2>这是章节目录</h2>
           <ul>
             <li v-for="item in book.chapters"><a href="jacvascript:;" @click="getReadText(item.link)">{{item.title}}</a></li>
+          </ul>
+          <h2>这是分类标签</h2>
+          <h1>这是女频分类标签</h1>
+          <ul>
+            <li v-for="item in cats.female"><a href="jacvascript:;" @click="getType(item.name,'female')">{{item.name}}---总共本数：{{item.bookCount}}</a></li>
+          </ul>
+          <h1>这是男频分类标签</h1>
+          <ul>
+            <li v-for="item in cats.male"><a href="jacvascript:;" @click="getType(item.name,'male')">{{item.name}}---总共本数：{{item.bookCount}}</a></li>
+          </ul>
+          <h1>这是出版分类标签</h1>
+          <ul>
+            <li v-for="item in cats.press"><a href="jacvascript:;" @click="getType(item.name)">{{item.name}}---总共本数：{{item.bookCount}}</a></li>
+          </ul>
+          <h1>这是我也不知道分类标签</h1>
+          <ul>
+            <li v-for="item in cats.picture"><a href="jacvascript:;" @click="getType(item.name)">{{item.name}}---总共本数：{{item.bookCount}}</a></li>
           </ul>
         </el-main>
         <el-footer style="background-color:#545c64"></el-footer>
@@ -35,7 +53,8 @@
           detail: {},
           bookId: '<%-bookId%>',
           activeIndex2: '',
-          book: {}
+          book: {},
+          cats: {}
         }
       },
       methods: {
@@ -61,18 +80,54 @@
           var url = '/read/chapterUrl' + (chapterUrl.replace('http://book.my716.com/getBooks.aspx?method=content&', '?'));
           // http://book.my716.com/getBooks.aspx?method=content&bookId=1228859&chapterFile=U_1228859_201803081001399585_4670_1.txt
 
-          console.log(url, '<<<<<<<<<<<<<<<<<<<<<<')
           this.$http.get(url).then(function(resp) {
             var data = resp.body;
             // data = JSON.parse(data);
-            console.log(data);
+            // console.log(data);
             // self.book = data.mixToc;
+          });
+        },
+        getSearchWord: function(chapterUrl) {
+          var self = this;
+          var url = '/search/hot-word'
+          this.$http.get(url).then(function(resp) {
+            var data = resp.body;
+            // console.log(data);
+          });
+        },
+        getSearchQuery: function(work) {
+          var self = this;
+          var url = `/search/query?word=${work}`;
+          this.$http.get(url).then(function(resp) {
+            var data = resp.body;
+            // console.log(data);
+          });
+        },
+        getStatistics: function(work) {
+          var self = this;
+          var url = `/cats/statistics`;
+          this.$http.get(url).then(function(resp) {
+            var data = JSON.parse(resp.body);
+            self.cats = data;
+          });
+        },
+        getType: function(type, channel, page) {
+          var self = this;
+          var page = page || 0;
+          var channel = channel || 'male';
+          var url = `/cats/type?type=${type}&page=${page}&channel=${channel}`;
+          this.$http.get(url).then(function(resp) {
+            var data = JSON.parse(resp.body);
+            // self.cats = data;
           });
         }
       },
       mounted() {
         this.getDetail();
         this.getChtper();
+        this.getSearchWord();
+        this.getSearchQuery('去');
+        this.getStatistics();
       }
     })
   </script>

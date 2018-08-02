@@ -96,6 +96,54 @@ router.get('/read/chapterUrl', function (req, res, next) {
   })
 });
 
+// 搜索页-大家都在搜
+router.get('/search/hot-word', function (req, res, next) {
+  var _url = `http://api.gps116.cn/book/hot-word?isfree=1&freeappid=1281437555`
+  commonFn(_url,function(error, response, body){
+    res.send(body);
+  })
+});
+
+// 搜索页-搜索书籍或者作者名
+//http://api.gps116.cn/book/fuzzy-search?query=%E5%8E%BB&start=0&limit=100&v=1&isfree=1&freeappid=1281437555
+router.get('/search/query', function (req, res, next) {
+  var word = encodeURIComponent(req.query.word);
+  var _url = `http://api.gps116.cn/book/fuzzy-search?query=${word}&start=0&limit=100&v=1&isfree=1&freeappid=1281437555`
+  commonFn(_url,function(error, response, body){
+    res.send(body);
+  })
+});
+
+// 分类，标签？
+//http://api.gps116.cn/cats/lv2/statistics?isfree=1&freeappid=1281437555
+router.get('/cats/statistics', function (req, res, next) {
+  var _url = `http://api.gps116.cn/cats/lv2/statistics?isfree=1&freeappid=1281437555`
+  commonFn(_url,function(error, response, body){
+    res.send(body);
+  })
+});
+
+// 分类，标签？点击详情页--列表页面
+//http://api.gps116.cn/book/by-categories?gender=male&type=hot&major=%E7%8E%84%E5%B9%BB&minor=&start=0&limit=50&isfree=1&freeappid=1281437555
+// freeappid: 1281437555
+// gender: male
+// isfree: 1
+// limit: 50
+// major: 玄幻
+// minor:
+// start: 0 //开始书籍
+// type: hot
+router.get('/cats/type', function (req, res, next) {
+  var type = encodeURIComponent(req.query.type);
+  var page = req.query.page
+  var channel = req.query.channel
+  var _url = `http://api.gps116.cn/book/by-categories?gender=${channel}&type=hot&major=${type}&minor=&start=${page}&limit=500&isfree=1&freeappid=1281437555`
+              http://api.gps116.cn/book/by-categories?gender=female&type=hot&major=%E5%8F%A4%E4%BB%A3%E8%A8%80%E6%83%85&minor=&start=0&limit=50&isfree=1&freeappid=1281437555
+  commonFn(_url,function(error, response, body){
+    res.send(body);
+  })
+});
+
 // 书籍详情页-推荐借口
 router.get('/detail/:id/recommend', function (req, res, next) {
   var id = req.params.id;

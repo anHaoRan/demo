@@ -11,6 +11,13 @@ var _headers = {
   'Content Type': 'application/json; charset=utf-8'
 };
 /* GET home page. */
+// iframe
+router.get('/iframe', function (req, res, next) {
+  res.render('iframe', Object.assign({
+    title: 'iframe'
+  }, config));
+});
+
 // 首页
 router.get('/', function (req, res, next) {
   res.render('index', Object.assign({
@@ -36,6 +43,8 @@ router.get('/detail', function (req, res, next) {
   res.render('detail', obj);
 });
 
+
+
 //公共调取方法v1
 function commonFn(_url,callback,head){
   var head = head||{
@@ -47,7 +56,7 @@ function commonFn(_url,callback,head){
     url: _url,
     headers: head
   }, function(error, response, body){
-      callback(error, response, body)
+      callback(error,response, body)
   });
 }
 
@@ -113,7 +122,20 @@ router.get('/search/query', function (req, res, next) {
     res.send(body);
   })
 });
-
+// 书籍搜索页路由
+router.get('/search/:keyWork', function (req, res, next) {
+  var word = encodeURIComponent(req.params.keyWork);
+  var _url = `http://api.gps116.cn/book/fuzzy-search?query=${word}&start=0&limit=100&v=1&isfree=1&freeappid=1281437555`;
+  commonFn(_url,function(error, response, body){
+    var data = JSON.parse(body);
+    var obj = Object.assign({
+      title: req.params.keyWork + '-书籍搜索页',
+      data: data,
+      keyWork:req.params.keyWork
+    }, config);
+    res.render('search', obj);
+  })
+});
 // 分类，标签？
 //http://api.gps116.cn/cats/lv2/statistics?isfree=1&freeappid=1281437555
 router.get('/cats/statistics', function (req, res, next) {
@@ -137,8 +159,7 @@ router.get('/cats/type', function (req, res, next) {
   var type = encodeURIComponent(req.query.type);
   var page = req.query.page
   var channel = req.query.channel
-  var _url = `http://api.gps116.cn/book/by-categories?gender=${channel}&type=hot&major=${type}&minor=&start=${page}&limit=500&isfree=1&freeappid=1281437555`
-              http://api.gps116.cn/book/by-categories?gender=female&type=hot&major=%E5%8F%A4%E4%BB%A3%E8%A8%80%E6%83%85&minor=&start=0&limit=50&isfree=1&freeappid=1281437555
+  var _url = `http://api.gps116.cn/book/by-categories?gender=${channel}&type=hot&major=${type}&minor=&start=${page}&limit=500&isfree=1&freeappid=1281437555`;
   commonFn(_url,function(error, response, body){
     res.send(body);
   })

@@ -1,0 +1,35 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>
+    <%- title %>
+  </title>
+  <script language="javascript">
+    function c() {
+      var a;
+      try {
+        if (document.all) {
+          a = document.frames["iframe1"].document;
+        } else {
+          iframe = document.getElementById("iframe1");
+          var iwindow = iframe.contentWindow;
+          var idoc = iwindow.document;
+          console.log(iwindow, '<<<<<<<<<<<<iwindow');
+          console.log(idoc, '<<<<<<<<<<<<idoc');
+        }
+        console.log(a, '<<<<<<<<<<<<<a')
+        // var b = a.getElementById("#app");
+        // console.log(b, '<<<<<<<<<<<<<<<<<<<b');
+      } catch (ex) {
+        console.log(ex)
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <iframe id="iframe1" src="http://localhost:4001/" onload="c();"></iframe>
+</body>
+
+</html>

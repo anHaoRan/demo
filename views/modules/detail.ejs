@@ -16,24 +16,24 @@
           </el-menu>
         </el-header>
         <el-main>
-          <h2>这是章节目录</h2>
+          <h2 id="top1">这是章节目录</h2>
           <ul>
             <li v-for="item in book.chapters"><a href="jacvascript:;" @click="getReadText(item.link)">{{item.title}}</a></li>
           </ul>
-          <h2>这是分类标签</h2>
-          <h1>这是女频分类标签</h1>
+          <h2 id="top2">这是分类标签</h2>
+          <h1 id="top3">这是女频分类标签</h1>
           <ul>
             <li v-for="item in cats.female"><a href="jacvascript:;" @click="getType(item.name,'female')">{{item.name}}---总共本数：{{item.bookCount}}</a></li>
           </ul>
-          <h1>这是男频分类标签</h1>
+          <h1 id="top4">这是男频分类标签</h1>
           <ul>
             <li v-for="item in cats.male"><a href="jacvascript:;" @click="getType(item.name,'male')">{{item.name}}---总共本数：{{item.bookCount}}</a></li>
           </ul>
-          <h1>这是出版分类标签</h1>
+          <h1 id="top5">这是出版分类标签</h1>
           <ul>
             <li v-for="item in cats.press"><a href="jacvascript:;" @click="getType(item.name)">{{item.name}}---总共本数：{{item.bookCount}}</a></li>
           </ul>
-          <h1>这是我也不知道分类标签</h1>
+          <h1 id="top6">这是我也不知道分类标签</h1>
           <ul>
             <li v-for="item in cats.picture"><a href="jacvascript:;" @click="getType(item.name)">{{item.name}}---总共本数：{{item.bookCount}}</a></li>
           </ul>
@@ -41,7 +41,12 @@
         <el-footer style="background-color:#545c64"></el-footer>
       </el-container>
     </el-container>
-
+    <a href="#top1" style="position:fixed;right:0;bottom:0px">章节目录</a>
+    <a href="#top2" style="position:fixed;right:0;bottom:20px">分类标签</a>
+    <a href="#top3" style="position:fixed;right:0;bottom:40px">女频分类标签</a>
+    <a href="#top4" style="position:fixed;right:0;bottom:60px">男频分类标签</a>
+    <a href="#top5" style="position:fixed;right:0;bottom:80px">出版分类标签</a>
+    <a href="#top6" style="position:fixed;right:0;bottom:100px">未知分类标签</a>
   </div>
 </body>
 <%- include ../common/common-js.ejs %>
@@ -59,6 +64,9 @@
       },
       methods: {
         handleSelect: function() {},
+        goTop: function(){
+
+        },
         getDetail: function() {
           var self = this;
           var url = '/detail/' + this.bookId;
